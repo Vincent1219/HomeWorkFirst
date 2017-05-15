@@ -107,7 +107,7 @@ namespace HomeWorkfirst.Controllers
             return RedirectToAction("Index");
         }
 
-        /// <summary> Email驗證 </summary>
+        /// <summary> 遠端Email驗證 </summary>
         /// <param name="客戶Id">客戶ID</param>
         /// <param name="Email">檢查的Email</param>
         /// <returns></returns>
