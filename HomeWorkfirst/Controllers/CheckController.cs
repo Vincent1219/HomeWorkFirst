@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace HomeWorkfirst.Controllers
 {
-    public class CheckController : Controller
+    public class CheckController : BaseController
     {
         private 客戶資料Entities db = new 客戶資料Entities();
 

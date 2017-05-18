@@ -9,6 +9,12 @@
 <p>
     @Html.ActionLink("新增客戶聯絡人", "Create")
 </p>
+
+@using (Html.BeginForm("Index", "客戶聯絡人")) {
+    @Html.DisplayNameFor(model => model.FirstOrDefault().職稱)
+    @Html.DropDownList("職稱", null, htmlAttributes: new { @class = "form-control" })
+    <button>查詢</button>
+}
 <table class="table">
     <tr>
         <th>

@@ -174,9 +174,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CheckController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MetroController.cs" />
     <Compile Include="Controllers\客戶聯絡人Controller.cs" />
     <Compile Include="Controllers\客戶資料Controller.cs" />
     <Compile Include="Controllers\客戶銀行資訊Controller.cs" />
@@ -202,24 +204,51 @@
     <Compile Include="Models\CustomerDetailsView.cs">
       <DependentUpon>Customer.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomerDetailsViewRepository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EFGeneratePartialClass.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EFRepository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EFUnitOfWork.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IRepository.EF6..cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IUnitOfWork.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RepositoryHelper.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>Customer.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagramsRepository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModel\客戶資料VM.cs" />
     <Compile Include="Models\客戶聯絡人.cs">
       <DependentUpon>Customer.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\客戶聯絡人.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\客戶聯絡人Repository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
     </Compile>
     <Compile Include="Models\客戶資料.cs">
       <DependentUpon>Customer.tt</DependentUpon>
@@ -227,11 +256,17 @@
     <Compile Include="Models\客戶資料.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\客戶資料Repository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\客戶銀行資訊.cs">
       <DependentUpon>Customer.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\客戶銀行資訊.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\客戶銀行資訊Repository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -239,12 +274,105 @@
   <ItemGroup>
     <Content Include="App_Data\客戶資料.mdf" />
     <Content Include="App_Data\客戶資料_log.ldf" />
+    <Content Include="calendar.html" />
+    <Content Include="chart.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="file-manager.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="form.html" />
+    <Content Include="gallery.html" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="icon.html" />
+    <Content Include="img\arrows-active.png" />
+    <Content Include="img\arrows-normal.png" />
+    <Content Include="img\avatar.jpg" />
+    <Content Include="img\bg-input-focus.png" />
+    <Content Include="img\bg-input.png" />
+    <Content Include="img\bg-login.jpg" />
+    <Content Include="img\browser-chrome-big.png" />
+    <Content Include="img\browser-firefox-big.png" />
+    <Content Include="img\browser-ie.png" />
+    <Content Include="img\browser-opera.png" />
+    <Content Include="img\browser-safari.png" />
+    <Content Include="img\buttons.gif" />
+    <Content Include="img\chat-left%402x.png" />
+    <Content Include="img\chat-left-metro%402x.png" />
+    <Content Include="img\chat-left-metro.png" />
+    <Content Include="img\chat-left.png" />
+    <Content Include="img\chat-right%402x.png" />
+    <Content Include="img\chat-right-metro%402x.png" />
+    <Content Include="img\chat-right-metro.png" />
+    <Content Include="img\chat-right.png" />
+    <Content Include="img\chosen-sprite.png" />
+    <Content Include="img\close-button-white.png" />
+    <Content Include="img\close-button.png" />
+    <Content Include="img\crop.gif" />
+    <Content Include="img\dialogs.png" />
+    <Content Include="img\gallery\photo1.jpg" />
+    <Content Include="img\gallery\photo10.jpg" />
+    <Content Include="img\gallery\photo11.jpg" />
+    <Content Include="img\gallery\photo12.jpg" />
+    <Content Include="img\gallery\photo13.jpg" />
+    <Content Include="img\gallery\photo2.jpg" />
+    <Content Include="img\gallery\photo3.jpg" />
+    <Content Include="img\gallery\photo4.jpg" />
+    <Content Include="img\gallery\photo5.jpg" />
+    <Content Include="img\gallery\photo6.jpg" />
+    <Content Include="img\gallery\photo7.jpg" />
+    <Content Include="img\gallery\photo8.jpg" />
+    <Content Include="img\gallery\photo9.jpg" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="img\glyphicons-white.png" />
+    <Content Include="img\glyphicons-white.svg" />
+    <Content Include="img\glyphicons.png" />
+    <Content Include="img\glyphicons.svg" />
+    <Content Include="img\glyphicons_halflings-white.png" />
+    <Content Include="img\glyphicons_halflings-white.svg" />
+    <Content Include="img\glyphicons_halflings.png" />
+    <Content Include="img\glyphicons_halflings.svg" />
+    <Content Include="img\icons-big.png" />
+    <Content Include="img\icons-small.png" />
+    <Content Include="img\iphone-style-checkboxes\off-63584.png" />
+    <Content Include="img\iphone-style-checkboxes\on-63584.png" />
+    <Content Include="img\iphone-style-checkboxes\slider_center-63584.png" />
+    <Content Include="img\iphone-style-checkboxes\slider_left-63584.png" />
+    <Content Include="img\iphone-style-checkboxes\slider_right-63584.png" />
+    <Content Include="img\progress.gif" />
+    <Content Include="img\quicklook-bg.png" />
+    <Content Include="img\quicklook-icons.png" />
+    <Content Include="img\quote.png" />
+    <Content Include="img\resize.png" />
+    <Content Include="img\slider_r8.png" />
+    <Content Include="img\spinner-mini.gif" />
+    <Content Include="img\sprite.png" />
+    <Content Include="img\timeline-bg.png" />
+    <Content Include="img\timeline-left-arrow%402x.png" />
+    <Content Include="img\timeline-left-arrow.png" />
+    <Content Include="img\timeline-right-arrow%402x.png" />
+    <Content Include="img\timeline-right-arrow.png" />
+    <Content Include="img\toolbar.gif" />
+    <Content Include="img\toolbar.png" />
+    <Content Include="img\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="img\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="img\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="img\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="img\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="img\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="img\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="img\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="img\ui-icons_222222_256x240.png" />
+    <Content Include="img\ui-icons_2e83ff_256x240.png" />
+    <Content Include="img\ui-icons_454545_256x240.png" />
+    <Content Include="img\ui-icons_888888_256x240.png" />
+    <Content Include="img\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="img\uploadify-cancel.png" />
+    <Content Include="index.html" />
+    <Content Include="login.html" />
+    <Content Include="messages.html" />
     <Content Include="Models\Customer.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Customer.edmx</DependentUpon>
@@ -259,8 +387,20 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EFGeneratePartialClass.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\IRepository.EF6..tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IRepository.EF6..cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="submenu.html" />
+    <Content Include="submenu2.html" />
+    <Content Include="submenu3.html" />
+    <Content Include="table.html" />
+    <Content Include="tasks.html" />
+    <Content Include="typography.html" />
+    <Content Include="ui.html" />
+    <Content Include="widgets.html" />
     <EntityDeploy Include="Models\Customer.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Customer.Designer.cs</LastGenOutput>
@@ -268,6 +408,7 @@
     <Content Include="Models\Customer.edmx.diagram">
       <DependentUpon>Customer.edmx</DependentUpon>
     </Content>
+    <Content Include="README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -323,6 +464,13 @@
     <Content Include="Views\客戶資料\CustomerDetails.cshtml" />
     <Content Include="Views\客戶資料\Edit.cshtml" />
     <Content Include="Views\客戶聯絡人\Create.cshtml" />
+    <Content Include="Views\客戶聯絡人\Edit.cshtml" />
+    <Content Include="Views\Shared\Error_DbEntityValidationException.cshtml" />
+    <Content Include="Views\Shared\Error_DbUpdateException.cshtml" />
+    <Content Include="Views\Metro\Index.cshtml" />
+    <Content Include="Views\Metro\_Layout.cshtml" />
+    <Content Include="Views\Metro\_ViewStart.cshtml" />
+    <Content Include="Views\Metro\Messages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -336,7 +484,12 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="css\" />
+    <Folder Include="font\" />
+    <Folder Include="js\" />
+    <Folder Include="Models\Entity\" />
     <Folder Include="Models\ValidationAttributes\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\Check\" />
   </ItemGroup>
   <PropertyGroup>
