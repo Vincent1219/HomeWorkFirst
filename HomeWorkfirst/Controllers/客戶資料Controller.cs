@@ -112,21 +112,21 @@ namespace HomeWorkfirst.Controllers
 
 
         [HttpPost]
-        public ActionResult BatchUpdate(客戶聯絡人[] items)
+        public ActionResult BatchUpdate(BatchUpdateVM[] items)
         {
-            if (ModelState.IsValid)
-            {
-                foreach (var item in items)
-                {
+            if (ModelState.IsValid) {
+                foreach (var item in items) {
                     var prod = repo.取得客戶聯絡人資料(item.Id);
                     prod.職稱 = item.職稱;
                     prod.電話 = item.電話;
                     prod.手機 = item.手機;
                 }
+                repo.UnitOfWork.Context.Configuration.ValidateOnSaveEnabled = false;
                 repo.UnitOfWork.Commit();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Details", new { id = items.FirstOrDefault().客戶Id } );
             }
-            return View("Index");
+            return View("Details", items);
         }
 
         protected override void Dispose(bool disposing)

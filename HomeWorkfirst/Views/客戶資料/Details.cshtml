@@ -97,6 +97,8 @@
     @for (var i = 0; i < items.Length; i++)
     {
         <tr>
+            @Html.HiddenFor(modelItem => items[i].Id)
+            @Html.HiddenFor(modelItem => items[i].客戶Id)
             <td>
                 @Html.EditorFor(modelItem => items[i].職稱)
             </td>

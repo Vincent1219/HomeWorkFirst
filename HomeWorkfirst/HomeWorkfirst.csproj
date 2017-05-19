@@ -234,6 +234,7 @@
     <Compile Include="Models\sysdiagramsRepository.cs">
       <DependentUpon>IRepository.EF6..tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel\BatchUpdateVM.cs" />
     <Compile Include="Models\ViewModel\客戶資料聯絡人明細VM.cs" />
     <Compile Include="Models\ViewModel\客戶資料VM.cs" />
     <Compile Include="Models\客戶聯絡人.cs">
