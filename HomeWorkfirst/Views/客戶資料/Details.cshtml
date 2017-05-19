@@ -1,0 +1,119 @@
+﻿@model HomeWorkfirst.Models.ViewModel.客戶資料聯絡人明細VM
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>客戶資料</h4>
+    <hr />
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.客戶資料.客戶名稱)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.客戶資料.客戶名稱)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.客戶資料.客戶分類)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.客戶資料.客戶分類)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.客戶資料.統一編號)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.客戶資料.統一編號)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.客戶資料.電話)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.客戶資料.電話)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.客戶資料.傳真)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.客戶資料.傳真)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.客戶資料.地址)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.客戶資料.地址)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.客戶資料.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.客戶資料.Email)
+        </dd>
+    </dl>
+</div>
+@using (Html.BeginForm("BatchUpdate","客戶資料"))
+{
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.客戶聯絡人.FirstOrDefault().職稱)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.客戶聯絡人.FirstOrDefault().姓名)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.客戶聯絡人.FirstOrDefault().Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.客戶聯絡人.FirstOrDefault().手機)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.客戶聯絡人.FirstOrDefault().電話)
+        </th>
+    </tr>
+    @{
+        var items = Model.客戶聯絡人.ToArray();
+    }
+    @for (var i = 0; i < items.Length; i++)
+    {
+        <tr>
+            <td>
+                @Html.EditorFor(modelItem => items[i].職稱)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => items[i].姓名)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => items[i].Email)
+            </td>
+            <td>
+                @Html.EditorFor(modelItem => items[i].手機)
+            </td>
+            <td>
+                @Html.EditorFor(modelItem => items[i].電話)
+            </td>
+        </tr>
+    }
+</table>
+    <button>批次更新</button>
+}

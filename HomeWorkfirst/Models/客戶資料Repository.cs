@@ -40,7 +40,7 @@ namespace HomeWorkfirst.Models
         public List<SelectListItem> Get客戶分類下拉選單列表()
         {
             List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem() { Value = "", Text = "請選擇", Selected = true });
+            items.Add(new SelectListItem() { Value = "", Text = "請選擇" });
             items.Add(new SelectListItem() { Value = "資訊業", Text = "資訊業" });
             items.Add(new SelectListItem() { Value = "製造業", Text = "製造業" });
             items.Add(new SelectListItem() { Value = "銀行業", Text = "銀行業" });
@@ -57,6 +57,20 @@ namespace HomeWorkfirst.Models
         public override void Delete(客戶資料 entity)
         {
             entity.是否已刪除 = true;
+        }
+
+        public 客戶資料聯絡人明細VM 取得客戶聯絡人清單(int id)
+        {
+            var 客戶資料 = Get單筆資料ByID(id);
+            客戶資料聯絡人明細VM data = new 客戶資料聯絡人明細VM();
+            data.客戶資料 = 客戶資料;
+            data.客戶聯絡人 = UnitOfWork.Context.Set<客戶聯絡人>().Where(x => !x.是否已刪除 && x.客戶Id == id).AsQueryable();
+            return data;
+        }
+
+        public 客戶聯絡人 取得客戶聯絡人資料(int id)
+        {
+            return base.UnitOfWork.Context.Set<客戶聯絡人>().Where(x => x.Id == id).FirstOrDefault();
         }
     }
 

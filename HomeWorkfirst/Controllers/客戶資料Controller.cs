@@ -8,6 +8,7 @@ using MvcPaging;
 using HomeWorkfirst.Models.ViewModel;
 using System.Data.Entity.Validation;
 using System.Data.Entity.Infrastructure;
+using System;
 
 namespace HomeWorkfirst.Controllers
 {
@@ -39,6 +40,21 @@ namespace HomeWorkfirst.Controllers
             return View(客戶資料檢視表);
         }
 
+        // GET: 客戶銀行資訊/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            客戶資料聯絡人明細VM 客戶明細 = repo.取得客戶聯絡人清單(id.Value);
+            if (客戶明細 == null)
+            {
+                return HttpNotFound();
+            }
+            return View(客戶明細);
+        }
+
         // GET: 客戶資料/Create
         public ActionResult Create()
         {
@@ -51,11 +67,11 @@ namespace HomeWorkfirst.Controllers
         [HandleError(ExceptionType = typeof(DbUpdateException), View = "Error_DbUpdateException")]
         public ActionResult Create(客戶資料 客戶資料)
         {
-            //if ( ModelState.IsValid ) {
+            if ( ModelState.IsValid ) {
                 repo.Add(客戶資料);
                 repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
-            //}
+            }
             return View( 客戶資料 );
         }
 
@@ -92,6 +108,25 @@ namespace HomeWorkfirst.Controllers
             repo.Delete(客戶資料);
             repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
+        }
+
+
+        [HttpPost]
+        public ActionResult BatchUpdate(客戶聯絡人[] items)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var item in items)
+                {
+                    var prod = repo.取得客戶聯絡人資料(item.Id);
+                    prod.職稱 = item.職稱;
+                    prod.電話 = item.電話;
+                    prod.手機 = item.手機;
+                }
+                repo.UnitOfWork.Commit();
+                return RedirectToAction("Index");
+            }
+            return View("Index");
         }
 
         protected override void Dispose(bool disposing)
